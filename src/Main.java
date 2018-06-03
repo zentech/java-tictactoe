@@ -5,7 +5,7 @@ public class Main {
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
 		Tictactoe game = new Tictactoe();
-		String player = "x";
+		String player = "X";
 		
 		do {
 			System.out.println(game.printBoard());
@@ -20,11 +20,11 @@ public class Main {
 				System.out.println(game.printBoard() + "\n" + player +" wins!");
 				break;
 			}
-			if(player == "x") {
-				player = "o";				
+			if(player == "X") {
+				player = "O";				
 			}
 			else {
-				player = "x";
+				player = "X";
 			}
 		}while(true);
 		System.out.println("Goodbye!..");

@@ -7,6 +7,7 @@ public class Tictactoe {
 	private String[][] board;
 	private static final int ROWS = 3;
 	private static final int COLUMNS = 3;
+	private String regex = "\\s{3}";
 	
 	/**
 	 * Tictactoe constructor
@@ -14,6 +15,7 @@ public class Tictactoe {
 	public Tictactoe() {
 		board = new String[ROWS][COLUMNS];
 		this.initializeBoard();
+//		this.winXtest();
 	}
 	
 	/**
@@ -22,7 +24,7 @@ public class Tictactoe {
 	public void initializeBoard() {
 		for(int i = 0; i < ROWS; i++) {
 			for(int j = 0; j < COLUMNS; j++) {
-				board[i][j] = " ";
+				board[i][j] = "   ";
 			}
 		}
 	}
@@ -34,8 +36,8 @@ public class Tictactoe {
 	 * @param player
 	 */	
 	public void setPlay(int i, int j, String player) {
-		if(board[i][j].equals(" "))
-			board[i][j] = player;
+		if(board[i][j].matches(regex))
+			board[i][j] = " "+player+" ";
 	}
 	
 	/**
@@ -44,18 +46,20 @@ public class Tictactoe {
 	public boolean isGameOver() {
 		//checking rows
     	for(int i = 0; i < ROWS; i++) {
-    		if(board[i][0] != " " && board[i][0] == board[i][1] && board[i][1] == board[i][2])
-    			return true;  			
+    		if(!board[i][0].matches(regex) && board[i][0].equals(board[i][1]) && board[i][1].equals(board[i][2])) {    			
+    			return true; 
+    		}   			 			
     	}
     	//checking columns
-    	for(int j = 0; j < COLUMNS; j++) {
-    		if(board[0][j] != " " && board[0][j] == board[1][j] && board[1][j] == board[2][j]) 
+    	
+    	for(int j = 0; j < COLUMNS; j++) {    		
+    		if(!board[0][j].matches(regex) && board[0][j].equals(board[1][j]) && board[1][j].equals(board[2][j])) 
     			return true;  			
     	}
     	//checking diagonals
-    	if(board[0][0] != " " && board[0][0] == board[1][1] && board[1][1] == board[2][2])
+    	if(!board[0][0].matches(regex) && board[0][0].equals(board[1][1]) && board[1][1].equals(board[2][2]))
     		return true;
-    	if(board[0][2] != " " && board[0][2] == board[1][1] && board[1][1] == board[2][0])
+    	if(!board[0][2].matches(regex) && board[0][2].equals(board[1][1]) && board[1][1].equals(board[2][0]))
     		return true;
     	//no body's won
     	return false;
@@ -76,9 +80,23 @@ public class Tictactoe {
 					strBoard += board[i][j] + "|";
 			}
 			if(i != ROWS-1)
-				strBoard += "\n-+-+-\n";
+				strBoard += "\n---+---+---\n";
 		}
 		return strBoard;
+	}
+	
+	/**
+	 * test unit 1st column X
+	 */
+	public void winXtest() {
+		for(int i = 0; i < ROWS; i++) {
+			for(int j = 0; j < COLUMNS; j++) {
+				if(j == 0)
+					board[i][j] = " X ";
+				else
+					board[i][j] = "   ";
+			}
+		}
 	}
 }
 
